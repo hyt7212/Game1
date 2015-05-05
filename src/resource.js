@@ -4,6 +4,8 @@ var res = {
     CloseSelected_png : "res/CloseSelected.png"*/
 
     GameMenuBG_png : "res/GameMenu/bg.png",
+    GameMenuTop_png : "res/GameMenu/top.png",
+    GameMenustartMenu_png : "res/GameMenu/startMenu.png",
     GameMenuBG_mp3 : "res/GameMenu/bgMusic.mp3"
 };
 

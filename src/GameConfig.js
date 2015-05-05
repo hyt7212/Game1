@@ -16,4 +16,4 @@ GC.w_2 = GC.winSize.width / 2 ;
 
 GC.h_2 = GC.winSize.height / 2;
 
-GC.SOUND_ON = true;
+GC.SOUND_ON = false;
