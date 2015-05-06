@@ -17,6 +17,7 @@
 
         "src/GameMenuScene.js",
 
-        "src/PlayGameScene.js"
+        "src/PlayGameScene.js",
+        "src/Lead.js"
     ]
 }

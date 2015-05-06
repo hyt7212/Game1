@@ -10,8 +10,6 @@ var GameMenuLayer = cc.Layer.extend({
         this.Background(); //添加背景
         this.bgMusic();//添加背景音乐
         this.Menu(); //菜单
-
-        return true;
     },
 
     //背景

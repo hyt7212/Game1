@@ -3,13 +3,14 @@
  * 进行游戏场景
  */
 var PlayGameLayer = cc.Layer.extend({
+    _ball:null,
+
     ctor:function () {
         //super init
         this._super();
 
         this.Background(); //添加背景
-
-        return true;
+        this.Cart(); //购物车
     },
 
     //背景
@@ -34,8 +35,16 @@ var PlayGameLayer = cc.Layer.extend({
             scale : 0.5 //缩放
         });
         this.addChild(BackgroundC);
-    }
+    },
 
+    //购物车
+    Cart:function(){
+        var cartTexture = cc.textureCache.addImage(res.PlayGameCart_png);
+        var cart = Lead.paddleWithTexture(cartTexture); //调用购物车移动处理类
+        cart.x = GC.w / 2;
+        cart.y = 40;
+        this.addChild(cart);
+    }
 });
 
 
