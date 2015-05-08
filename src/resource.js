@@ -12,7 +12,9 @@ var res = {
     //游戏场景资源
     PlayGameCart_png : "res/PlayGame/cart.png",
     PlayGameCloseNormal_png : "res/PlayGame/CloseNormal.png",
-    PlayGameCloseSelected_png : "res/PlayGame/CloseSelected.png"
+    PlayGameCloseSelected_png : "res/PlayGame/CloseSelected.png",
+    //游戏掉落物品
+    item1 : "res/PlayGame/item/item1.png"
 };
 
 var g_resources = [];
