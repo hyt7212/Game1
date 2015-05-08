@@ -3,6 +3,9 @@ var res = {
     CloseNormal_png : "res/CloseNormal.png",
     CloseSelected_png : "res/CloseSelected.png"*/
 
+    //字体资源
+    arial_14_fnt : "res/fonts/arial-14.fnt",
+
     //菜单场景资源
     GameMenuBG_png : "res/GameMenu/bg.png",
     GameMenuTop_png : "res/GameMenu/top.png",

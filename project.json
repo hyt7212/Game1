@@ -18,6 +18,9 @@
         "src/gameMenu/GameMenuScene.js",
 
         "src/GamePlay/GamePlayScene.js",
-        "src/GamePlay/Lead.js"
+        "src/GamePlay/Lead.js",
+        "src/GamePlay/GPTouchLayer.js",
+
+        "src/gameOver/GameOverScene.js"
     ]
 }

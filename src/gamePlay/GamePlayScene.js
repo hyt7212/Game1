@@ -4,14 +4,15 @@
  */
 var GamePlayLayer = cc.Layer.extend({
     _ball:null,
+    _touchLayer : null,
 
     ctor:function () {
         //super init
         this._super();
 
         this.Background(); //添加背景
-        this.Cart(); //购物车
         this.Menu(); //返回-游戏菜单
+        this.addTouchLayer();
     },
 
     //背景
@@ -38,15 +39,6 @@ var GamePlayLayer = cc.Layer.extend({
         this.addChild(BackgroundC);
     },
 
-    //购物车
-    Cart:function(){
-        var cartTexture = cc.textureCache.addImage(res.PlayGameCart_png);
-        var cart = Lead.paddleWithTexture(cartTexture); //调用购物车移动处理类
-        cart.x = GC.w / 2;
-        cart.y = 50;
-        this.addChild(cart);
-    },
-
     //返回菜单
     Menu:function(){
         var closeItem = new cc.MenuItemImage(res.PlayGameCloseNormal_png, res.PlayGameCloseSelected_png, this.onMenuCallback, this); //创建开始按钮
@@ -70,6 +62,12 @@ var GamePlayLayer = cc.Layer.extend({
         cc.log('BackBtn click!'); //输出控制台日志
         //切换场景
         cc.director.runScene(new cc.TransitionFade(1.2, new GameMenuScene()));
+    },
+
+    //物品掉落
+    addTouchLayer : function(){
+        this._touchLayer = new GPTouchLayer();
+        this.addChild(this._touchLayer);
     }
 });
 
