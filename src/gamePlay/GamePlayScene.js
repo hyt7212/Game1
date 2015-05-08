@@ -2,7 +2,7 @@
  * Created by Young on 2015/5/5.
  * 进行游戏场景
  */
-var PlayGameLayer = cc.Layer.extend({
+var GamePlayLayer = cc.Layer.extend({
     _ball:null,
 
     ctor:function () {
@@ -11,6 +11,7 @@ var PlayGameLayer = cc.Layer.extend({
 
         this.Background(); //添加背景
         this.Cart(); //购物车
+        this.Menu(); //返回-游戏菜单
     },
 
     //背景
@@ -42,16 +43,42 @@ var PlayGameLayer = cc.Layer.extend({
         var cartTexture = cc.textureCache.addImage(res.PlayGameCart_png);
         var cart = Lead.paddleWithTexture(cartTexture); //调用购物车移动处理类
         cart.x = GC.w / 2;
-        cart.y = 40;
+        cart.y = 50;
         this.addChild(cart);
+    },
+
+    //返回菜单
+    Menu:function(){
+        var closeItem = new cc.MenuItemImage(res.PlayGameCloseNormal_png, res.PlayGameCloseSelected_png, this.onMenuCallback, this); //创建开始按钮
+        //设置属性
+        closeItem.attr({
+            x: GC.w - 20,
+            y: 20,
+            anchorX: 0.5,
+            anchorY: 0.5
+        });
+
+        //生成菜单
+        var menu = new cc.Menu(closeItem);
+        menu.x = 0;
+        menu.y = 0;
+        this.addChild(menu, 1);
+    },
+
+    //返回菜单点击事件
+    onMenuCallback:function (sender) {
+        cc.log('BackBtn click!'); //输出控制台日志
+        //切换场景
+        cc.director.runScene(new cc.TransitionFade(1.2, new GameMenuScene()));
     }
 });
 
 
-var PlayGameScene = cc.Scene.extend({
+var GamePlayScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new PlayGameLayer();
+
+        var layer = new GamePlayLayer();
         this.addChild(layer);
     }
 });

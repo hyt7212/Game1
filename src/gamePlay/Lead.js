@@ -1,5 +1,5 @@
 /**
- * ¹ºÎï³µÒÆ¶¯´¦Àí
+ * è´­ç‰©è½¦ç§»åŠ¨å¤„ç†
  * @type {number}
  */
 var PADDLE_STATE_GRABBED = 0;

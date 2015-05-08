@@ -13,11 +13,11 @@
     "jsList" : [
         "src/resource.js",
 
-        "src/GameConfig.js",
+        "src/config/GameConfig.js",
 
-        "src/GameMenuScene.js",
+        "src/gameMenu/GameMenuScene.js",
 
-        "src/PlayGameScene.js",
-        "src/Lead.js"
+        "src/GamePlay/GamePlayScene.js",
+        "src/GamePlay/Lead.js"
     ]
 }

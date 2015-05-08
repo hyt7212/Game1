@@ -48,11 +48,11 @@
  */
 
 cc.game.onStart = function(){
-    if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
-        document.body.removeChild(document.getElementById("cocosLoading"));
+    //if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
+    //    document.body.removeChild(document.getElementById("cocosLoading"));
 
     // Pass true to enable retina display, disabled by default to improve performance
-    cc.view.enableRetina(false);
+    //cc.view.enableRetina(false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
     // Setup the resolution policy and design resolution size
@@ -61,7 +61,8 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(new GameMenuScene());
+        //cc.director.runScene(new GameMenuScene()); //菜单场景
+        cc.director.runScene(new GamePlayScene()); //游戏场景
     }, this);
 };
 cc.game.run();

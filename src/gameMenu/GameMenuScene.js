@@ -69,10 +69,9 @@ var GameMenuLayer = cc.Layer.extend({
 
     //开始游戏按钮点击事件
     onMenuCallback:function (sender) {
-        cc.log("'startBtn click!"); //输出控制台日志
+        cc.log("startBtn click!"); //输出控制台日志
         //切换到进行游戏场景
-        var scene = new PlayGameScene();
-        cc.director.runScene(new cc.TransitionFade(2, scene)); //淡出传出场景，淡入传入场景
+        cc.director.runScene(new cc.TransitionFade(1.2, new GamePlayScene()));
     }
 });
 
@@ -80,6 +79,7 @@ var GameMenuLayer = cc.Layer.extend({
 var GameMenuScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
+
         var layer = new GameMenuLayer();
         this.addChild(layer);
     }
