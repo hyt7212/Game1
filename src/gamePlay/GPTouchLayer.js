@@ -5,8 +5,8 @@
 var g_GPTouchLayer;
 
 var GPTouchLayer = cc.Layer.extend({
-    _lbScore : null, //分数
-    _time : 1, //游戏时间
+    _lbScore: null, //分数
+    _time: 60, //游戏时间
     _descTime: null, //倒计时
 
     ctor: function () {
@@ -22,7 +22,9 @@ var GPTouchLayer = cc.Layer.extend({
 
         this.schedule(this.descTime, 1); //倒计时
 
-        this.scheduleUpdate();
+        //this.scheduleUpdate();
+
+        this.doDownItem()//掉落物品测试
     },
 
     //显示分数，倒计时
@@ -60,26 +62,32 @@ var GPTouchLayer = cc.Layer.extend({
     },
 
     //执行倒计时
-    descTime: function(){
-        if(this._time <= 0){
+    descTime: function () {
+        if (this._time <= 0) {
             //游戏结束
             cc.log("onGameOver");
             this.onGameOver();
-        }else{
+        } else {
             this._time -= 1;
             this._descTime.setString("Time: " + this._time);
         }
     },
 
+    //实时刷新
+    update: function () {
+        cc.log('dl');
+    },
+
     //掉落物品
-    update:function(){
-        //cc.log('dl');
+    doDownItem: function (dt) {
+
     },
 
 
     //游戏结束
-    onGameOver: function(){
-        this.unschedule(this.descTime);
+    onGameOver: function () {
+        this.unscheduleUpdate(this); //停止物品掉落
+        this.unschedule(this.descTime); //停止倒计时
         cc.director.runScene(new cc.TransitionFade(1.2, new GameOverScene()));
     }
 });
