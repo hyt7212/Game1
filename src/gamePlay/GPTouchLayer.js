@@ -9,6 +9,8 @@ var GPTouchLayer = cc.Layer.extend({
     _time: 60, //游戏时间
     _descTime: null, //倒计时
 
+    _texTransparentBatch : null,
+
     ctor: function () {
         this._super();
 
@@ -80,7 +82,8 @@ var GPTouchLayer = cc.Layer.extend({
 
     //掉落物品
     doDownItem: function (dt) {
-
+        cc.log('Item');
+        var item = new Item(1);
     },
 
 

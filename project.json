@@ -19,6 +19,7 @@
 
         "src/GamePlay/GamePlayScene.js",
         "src/GamePlay/Lead.js",
+        "src/GamePlay/Item.js",
         "src/GamePlay/GPTouchLayer.js",
 
         "src/gameOver/GameOverScene.js"

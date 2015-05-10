@@ -64,7 +64,7 @@ var GamePlayLayer = cc.Layer.extend({
         cc.director.runScene(new cc.TransitionFade(1.2, new GameMenuScene()));
     },
 
-    //物品掉落
+    //创建购物车和物品掉落
     addTouchLayer : function(){
         this._touchLayer = new GPTouchLayer();
         this.addChild(this._touchLayer);
