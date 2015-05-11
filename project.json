@@ -14,12 +14,13 @@
         "src/resource.js",
 
         "src/config/GameConfig.js",
+        "src/config/EnemyType.js",
 
         "src/gameMenu/GameMenuScene.js",
 
         "src/GamePlay/GamePlayScene.js",
         "src/GamePlay/Lead.js",
-        "src/GamePlay/Item.js",
+        "src/GamePlay/Enemy.js",
         "src/GamePlay/GPTouchLayer.js",
 
         "src/gameOver/GameOverScene.js"

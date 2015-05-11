@@ -17,6 +17,7 @@ var res = {
     PlayGameCloseNormal_png : "res/PlayGame/CloseNormal.png",
     PlayGameCloseSelected_png : "res/PlayGame/CloseSelected.png",
     //游戏掉落物品
+    item0 : "res/PlayGame/item/item0.png",
     item1 : "res/PlayGame/item/item1.png"
 };
 

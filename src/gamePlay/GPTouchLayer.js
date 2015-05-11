@@ -6,27 +6,31 @@ var g_GPTouchLayer;
 
 var GPTouchLayer = cc.Layer.extend({
     _lbScore: null, //分数
-    _time: 60, //游戏时间
+    _time: GC.GAME_TIME, //游戏时间
     _descTime: null, //倒计时
-
     _texTransparentBatch : null,
 
     ctor: function () {
         this._super();
+        this.init();
+    },
 
+    //初始化
+    init:function(){
         g_GPTouchLayer = this;
-
         GC.SCORE = 0;
 
         this.initAboutInfo(); //分数计时器
-
         this.initCart(); //购物车
-
         this.schedule(this.descTime, 1); //倒计时
+        this.scheduleUpdate();
 
-        //this.scheduleUpdate();
+        // TransparentBatch
+        //var texTransparent = cc.textureCache.addImage(res.item0);
+        this._texTransparentBatch = new cc.SpriteBatchNode('');
+        this.addChild(this._texTransparentBatch);
 
-        this.doDownItem()//掉落物品测试
+        Enemy.preSet(); //掉落物品
     },
 
     //显示分数，倒计时
@@ -81,10 +85,10 @@ var GPTouchLayer = cc.Layer.extend({
     },
 
     //掉落物品
-    doDownItem: function (dt) {
+    /*doDownItem: function (dt) {
         cc.log('Item');
         var item = new Item(1);
-    },
+    },*/
 
 
     //游戏结束
@@ -94,3 +98,7 @@ var GPTouchLayer = cc.Layer.extend({
         cc.director.runScene(new cc.TransitionFade(1.2, new GameOverScene()));
     }
 });
+
+GPTouchLayer.prototype.addEnemy = function (enemy, z, tag) {
+    this._texTransparentBatch.addChild(enemy, z, tag);
+};
