@@ -17,8 +17,8 @@ var res = {
     PlayGameCloseNormal_png : "res/PlayGame/CloseNormal.png",
     PlayGameCloseSelected_png : "res/PlayGame/CloseSelected.png",
     //游戏掉落物品
-    item0 : "res/PlayGame/item/item0.png",
-    item1 : "res/PlayGame/item/item1.png"
+    textureItems_plist : 'res/PlayGame/items.plist',
+    textureItems_png : 'res/PlayGame/items.png'
 };
 
 var g_resources = [];

@@ -26,8 +26,8 @@ var GPTouchLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         // TransparentBatch
-        //var texTransparent = cc.textureCache.addImage(res.item0);
-        this._texTransparentBatch = new cc.SpriteBatchNode('');
+        var texTransparent = cc.textureCache.addImage(res.textureItems_png);
+        this._texTransparentBatch = new cc.SpriteBatchNode(texTransparent);
         this.addChild(this._texTransparentBatch);
 
         Enemy.preSet(); //掉落物品

@@ -5,12 +5,12 @@
 var Enemy = cc.Sprite.extend({
     zOrder:1000,
     ctor: function(arg){
-        cc.log(arg.textureName);
-        this._super(arg.textureName);
+        cc.log("#"+arg.textureName);
+        this._super("#item0.png");
     },
 
     update:function (dt) {
-        /*var x = this.x;
+        var x = this.x;
         var y = this.y;
         if ((x < 0 || x > MW.WIDTH) && (y < 0 || y > MW.HEIGHT)) {
             this.active = false;
@@ -23,19 +23,25 @@ var Enemy = cc.Sprite.extend({
             }
         }
 
-        if (x < 0 || x > g_sharedGameLayer.screenRect.width || y < 0 || y > g_sharedGameLayer.screenRect.height || this.HP <= 0) {
+        if (x < 0 || x > g_GPTouchLayer.screenRect.width || y < 0 || y > g_GPTouchLayer.screenRect.height || this.HP <= 0) {
             this.active = false;
             this.destroy();
-        }*/
+        }
 
     }
 });
 
 //创建一个物品
-Enemy.create = function (arg) {
+/*Enemy.create = function (arg) {
     var enemy = new Enemy(arg);
     g_GPTouchLayer.addEnemy(enemy, enemy.zOrder, GC.UNIT_TAG.ENEMY);
     GC.CONTAINER.ENEMIES.push(enemy);
+    return enemy;
+};*/
+Enemy.create = function (arg) {
+    var enemy = new Enemy(arg);
+    g_GPTouchLayer.addEnemy(enemy, enemy.zOrder, MW.UNIT_TAG.ENEMY);
+    MW.CONTAINER.ENEMIES.push(enemy);
     return enemy;
 };
 

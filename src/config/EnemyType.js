@@ -36,7 +36,7 @@
 var EnemyType = [
     {
         type:0,
-        textureName:res.item0,
+        textureName:"item0.png",
         bulletType:"W2.png",
         ////HP:1,
         ////EnemyType:MW.ENEMY_MOVE_TYPE.ATTACK,
@@ -45,7 +45,7 @@ var EnemyType = [
     },
     {
         type:1,
-        textureName:res.item1,
+        textureName:"item1.png",
         bulletType:"W2.png",
         //HP:2,
         //EnemyType:MW.ENEMY_MOVE_TYPE.ATTACK,
