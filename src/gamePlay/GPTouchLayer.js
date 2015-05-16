@@ -3,12 +3,14 @@
  */
 
 var g_GPTouchLayer;
+var i = 1;
 
 var GPTouchLayer = cc.Layer.extend({
     _lbScore: null, //分数
     _time: GC.GAME_TIME, //游戏时间
     _descTime: null, //倒计时
     _items : null, //物品
+    _maxItems : 5, //最多物品数量
 
     ctor: function () {
         this._super();
@@ -25,7 +27,7 @@ var GPTouchLayer = cc.Layer.extend({
         this.schedule(this.descTime, 1); //倒计时
         this.scheduleUpdate();
 
-        this.doDownItem(0);
+        //this.doDownItem(0);
     },
 
     //显示分数，倒计时
@@ -76,8 +78,14 @@ var GPTouchLayer = cc.Layer.extend({
 
     //实时刷新
     update: function () {
-        cc.log('dl');
-        //cc.log(this._items);
+        //cc.log('dl');
+        if(i < this._maxItems){
+            this.doDownItem(0);
+            i++;
+        }else{
+            return;
+        }
+        cc.log(this._items);
     },
 
     //掉落物品
