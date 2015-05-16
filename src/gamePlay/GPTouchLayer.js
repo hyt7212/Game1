@@ -25,12 +25,7 @@ var GPTouchLayer = cc.Layer.extend({
         this.schedule(this.descTime, 1); //倒计时
         this.scheduleUpdate();
 
-        // TransparentBatch
-        var texTransparent = cc.textureCache.addImage(res.textureItems_png);
-        this._texTransparentBatch = new cc.SpriteBatchNode(texTransparent);
-        this.addChild(this._texTransparentBatch);
 
-        Enemy.preSet(); //掉落物品
     },
 
     //显示分数，倒计时
@@ -98,7 +93,3 @@ var GPTouchLayer = cc.Layer.extend({
         cc.director.runScene(new cc.TransitionFade(1.2, new GameOverScene()));
     }
 });
-
-GPTouchLayer.prototype.addEnemy = function (enemy, z, tag) {
-    this._texTransparentBatch.addChild(enemy, z, tag);
-};

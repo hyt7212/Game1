@@ -12,7 +12,7 @@ var GamePlayLayer = cc.Layer.extend({
 
         this.Background(); //添加背景
         this.Menu(); //返回-游戏菜单
-        this.addTouchLayer();
+        this.addTouchLayer(); //购物车和掉落物品
     },
 
     //背景
