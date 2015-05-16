@@ -8,7 +8,7 @@ var GPTouchLayer = cc.Layer.extend({
     _lbScore: null, //分数
     _time: GC.GAME_TIME, //游戏时间
     _descTime: null, //倒计时
-    _texTransparentBatch : null,
+    _items : null, //物品
 
     ctor: function () {
         this._super();
@@ -25,7 +25,7 @@ var GPTouchLayer = cc.Layer.extend({
         this.schedule(this.descTime, 1); //倒计时
         this.scheduleUpdate();
 
-
+        this.doDownItem(0);
     },
 
     //显示分数，倒计时
@@ -77,13 +77,23 @@ var GPTouchLayer = cc.Layer.extend({
     //实时刷新
     update: function () {
         cc.log('dl');
+        //cc.log(this._items);
     },
 
     //掉落物品
-    /*doDownItem: function (dt) {
-        cc.log('Item');
-        var item = new Item(1);
-    },*/
+    doDownItem: function (item) {
+        //加载掉落物品到缓存
+        cc.spriteFrameCache.addSpriteFrames(res.textureItems_plist);
+        var playerTexture = cc.textureCache.addImage(res.textureItems_png);
+
+        this._items = cc.Sprite.create("#item"+item+".png");
+        this._items.x = Math.random() * GC.w;
+        this._items.y = 300;
+        //掉落到底部
+        this._items.runAction(cc.moveBy(2, cc.p(0, -300)));
+
+        this.addChild(this._items,10);
+    },
 
 
     //游戏结束
