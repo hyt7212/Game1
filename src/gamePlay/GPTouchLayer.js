@@ -7,10 +7,12 @@ var i = 1;
 
 var GPTouchLayer = cc.Layer.extend({
     _lbScore: null, //分数
+    tmpScore: 0, //临时分数
     _time: GC.GAME_TIME, //游戏时间
     _descTime: null, //倒计时
-    _items : null, //物品
+    _items : [], //所有物品
     _maxItems : 5, //最多物品数量
+    _cart : null, //购物车
 
     ctor: function () {
         this._super();
@@ -27,7 +29,9 @@ var GPTouchLayer = cc.Layer.extend({
         this.schedule(this.descTime, 1); //倒计时
         this.scheduleUpdate();
 
-        //this.doDownItem(0);
+        //加载掉落物品到缓存
+        cc.spriteFrameCache.addSpriteFrames(res.textureItems_plist);
+        var itemsTexture = cc.textureCache.addImage(res.textureItems_png);
     },
 
     //显示分数，倒计时
@@ -61,6 +65,8 @@ var GPTouchLayer = cc.Layer.extend({
         var cart = Lead.paddleWithTexture(cartTexture); //调用购物车移动处理类
         cart.x = GC.w / 2;
         cart.y = 50;
+        //cart.setTag('cart');
+        this._cart = cart;
         this.addChild(cart);
     },
 
@@ -78,31 +84,84 @@ var GPTouchLayer = cc.Layer.extend({
 
     //实时刷新
     update: function () {
-        //cc.log('dl');
-        if(i < this._maxItems){
-            this.doDownItem(0);
+        if(i <= this._maxItems){
+            var delayTime = Math.random(0, 0.5); //生成时间
+            //cc.log(delayTime);
+            this.scheduleOnce(this.doDownItem, 0.1 * Math.random());
+            //this.doDownItem();
             i++;
-        }else{
-            return;
         }
-        cc.log(this._items);
+
+        var selChild = null;
+        for (var j = 0; j < this._items.length; j++) {
+            selChild = this._items[j];
+            var selChildPos = selChild.getPosition();
+            //碰撞检测
+            var cX = this._cart.getPosition().x;
+            var cY = this._cart.getPosition().y;
+            var sX = selChildPos.x;
+            var sY = selChildPos.y;
+            //cc.log('cX:'+cX + ' cY:'+cY + ' sX:' + sX + ' sY:' + sY);
+            if(Math.abs(sX - cX) < 15 && Math.abs(sY - cY) < 15){
+                cc.log('yes');
+                this.removeChildByTag(selChild.tag);
+                this._items.splice(j, 1);
+                i--;
+
+                //加分
+                var fenShu = '+1';
+                if(selChild.tag == 'item0'){
+                    this.tmpScore--;
+                    fenShu = "-1";
+                }else{
+                    this.tmpScore++;
+                }
+                this._lbScore.string = 'Score: ' + this.tmpScore;
+
+                //显示得分效果
+                var label = new cc.LabelTTF(fenShu, "Arial", 30);
+                label.setPosition(this._cart.getPosition());
+                label.setColor(cc.color(255, 255, 255));
+                this.addChild(label, 1);
+                //加速动画
+                var move = new cc.MoveBy(0.5, cc.p(0, 60));
+                var Ease = move.easing(cc.easeBackOut(3.0));
+                label.runAction(Ease);
+
+                var disapear = new cc.FadeTo(0.5,0);
+                var finish = new cc.CallFunc(this.NumDisapear,label);
+                var action = new cc.Sequence(disapear, finish);
+                label.runAction(action);
+            }
+
+            //超出屏幕检测
+            if(selChildPos.y <= 0){
+                this.removeChildByTag(selChild.tag);
+                this._items.splice(j, 1);
+                i--;
+            }
+        }
     },
 
     //掉落物品
-    doDownItem: function (item) {
-        //加载掉落物品到缓存
-        cc.spriteFrameCache.addSpriteFrames(res.textureItems_plist);
-        var playerTexture = cc.textureCache.addImage(res.textureItems_png);
-
-        this._items = cc.Sprite.create("#item"+item+".png");
-        this._items.x = Math.random() * GC.w;
-        this._items.y = 300;
+    doDownItem: function () {
+        var i = rd(0, 12);
+        var item = cc.Sprite.create("#item"+i+".png");
+        item.x = Math.random() * GC.w;
+        item.y = 300;
+        item.setTag('item' + i); //设置标签
         //掉落到底部
-        this._items.runAction(cc.moveBy(2, cc.p(0, -300)));
-
-        this.addChild(this._items,10);
+        var time = Math.random() + 0.6; //掉落速度
+        item.runAction(cc.moveBy(time, cc.p(0, -400)));
+        this.addChild(item,10);
+        this._items.push(item);
     },
 
+    //移除加分效果
+    NumDisapear:function(label)
+    {
+        label.removeFromParent(true);
+    },
 
     //游戏结束
     onGameOver: function () {
@@ -111,3 +170,14 @@ var GPTouchLayer = cc.Layer.extend({
         cc.director.runScene(new cc.TransitionFade(1.2, new GameOverScene()));
     }
 });
+
+/**
+ * 随机整数
+ * @param n 最小值
+ * @param m 最大值
+ * @returns {number}
+ */
+function rd(n, m){
+    var c = m - n + 1;
+    return Math.floor(Math.random() * c + n);
+}
