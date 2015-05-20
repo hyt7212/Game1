@@ -70,6 +70,8 @@ var GameMenuLayer = cc.Layer.extend({
     //开始游戏按钮点击事件
     onMenuCallback:function (sender) {
         cc.log("startBtn click!"); //输出控制台日志
+        cc.audioEngine.stopMusic(); //停止音乐
+        cc.audioEngine.stopAllEffects(); //停止音效
         //切换到进行游戏场景
         cc.director.runScene(new cc.TransitionFade(1.2, new GamePlayScene()));
     }

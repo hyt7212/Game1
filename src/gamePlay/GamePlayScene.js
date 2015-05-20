@@ -36,7 +36,7 @@ var GamePlayLayer = cc.Layer.extend({
             anchorY: 0.5,
             scale : 0.5 //缩放
         });
-        this.addChild(BackgroundC);
+        this.addChild(BackgroundC, 11);
     },
 
     //返回菜单

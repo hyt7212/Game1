@@ -84,11 +84,8 @@ var GPTouchLayer = cc.Layer.extend({
 
     //实时刷新
     update: function () {
-        if(i <= this._maxItems){
-            var delayTime = Math.random(0, 0.5); //生成时间
-            //cc.log(delayTime);
-            this.scheduleOnce(this.doDownItem, 0.1 * Math.random());
-            //this.doDownItem();
+        if(i <= this._maxItems){ //小于最大数量，添加掉落物品
+            this.doDownItem();
             i++;
         }
 
@@ -102,9 +99,9 @@ var GPTouchLayer = cc.Layer.extend({
             var sX = selChildPos.x;
             var sY = selChildPos.y;
             //cc.log('cX:'+cX + ' cY:'+cY + ' sX:' + sX + ' sY:' + sY);
-            if(Math.abs(sX - cX) < 15 && Math.abs(sY - cY) < 15){
+            if(Math.abs(sX - cX) < 20 && Math.abs(sY - cY) < 15){
                 cc.log('yes');
-                this.removeChildByTag(selChild.tag);
+                this.removeChildByTag(selChild.tag); //碰撞，移除该物品
                 this._items.splice(j, 1);
                 i--;
 
@@ -127,7 +124,7 @@ var GPTouchLayer = cc.Layer.extend({
                 var move = new cc.MoveBy(0.5, cc.p(0, 60));
                 var Ease = move.easing(cc.easeBackOut(3.0));
                 label.runAction(Ease);
-
+                //淡出动画
                 var disapear = new cc.FadeTo(0.5,0);
                 var finish = new cc.CallFunc(this.NumDisapear,label);
                 var action = new cc.Sequence(disapear, finish);
@@ -148,16 +145,16 @@ var GPTouchLayer = cc.Layer.extend({
         var i = rd(0, 12);
         var item = cc.Sprite.create("#item"+i+".png");
         item.x = Math.random() * GC.w;
-        item.y = 300;
+        item.y = 300 + rd(30, 150);
         item.setTag('item' + i); //设置标签
         //掉落到底部
         var time = Math.random() + 0.6; //掉落速度
-        item.runAction(cc.moveBy(time, cc.p(0, -400)));
+        item.runAction(cc.moveBy(time, cc.p(0, -480)));
         this.addChild(item,10);
         this._items.push(item);
     },
 
-    //移除加分效果
+    //移除加分文字
     NumDisapear:function(label)
     {
         label.removeFromParent(true);

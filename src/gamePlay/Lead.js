@@ -11,6 +11,7 @@ var Lead = cc.Sprite.extend({
 
     ctor: function(){
         this._super();
+        //监听时间
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -65,7 +66,7 @@ var Lead = cc.Sprite.extend({
         var touchPoint = touch.getLocation();
         //touchPoint = cc.director.convertToGL( touchPoint );
 
-        target.x = touchPoint.x;
+        target.x = touchPoint.x; //x轴移动
     },
     onTouchEnded:function (touch, event) {
         var target = event.getCurrentTarget();

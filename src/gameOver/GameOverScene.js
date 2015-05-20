@@ -37,7 +37,7 @@ var GameOverLayer = cc.Layer.extend({
 
     //分数
     source:function(){
-        var Score = new cc.LabelBMFont('Score: ' + GC.SCORE, res.arial_14_fnt);
+        var Score = new cc.LabelBMFont(g_GPTouchLayer._lbScore.getString(), res.arial_14_fnt);
         Score.attr({
             anchorX: 0.5,
             anchorY: 0.5,

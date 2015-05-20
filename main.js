@@ -61,8 +61,8 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        //cc.director.runScene(new GameMenuScene()); //菜单场景
-        cc.director.runScene(new GamePlayScene()); //游戏场景
+        cc.director.runScene(new GameMenuScene()); //菜单场景
+        //cc.director.runScene(new GamePlayScene()); //游戏场景
         //cc.director.runScene(new GameOverScene()); //游戏结束
     }, this);
 };
