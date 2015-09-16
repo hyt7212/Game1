@@ -14,7 +14,7 @@ GC.w_2 = GC.winSize.width / 2 ;
 
 GC.h_2 = GC.winSize.height / 2;
 
-GC.SOUND_ON = false; //是否开启背景音乐
+GC.SOUND_ON = true; //是否开启背景音乐
 
 GC.GAME_TIME = 10; //游戏时间
 
