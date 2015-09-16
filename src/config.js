@@ -16,7 +16,7 @@ GC.h_2 = GC.winSize.height / 2;
 
 GC.SOUND_ON = false; //是否开启背景音乐
 
-GC.GAME_TIME = 5; //游戏时间
+GC.GAME_TIME = 10; //游戏时间
 
 GC.TRANSITION_TIME = 1.2; //场景切换时间
 

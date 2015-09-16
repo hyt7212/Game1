@@ -98,7 +98,9 @@ var playLayer = cc.Layer.extend({
 
             if (cc.rectIntersectsRect(cartBox, itemBox)) { //是否发生碰撞
                 //加减分数
-                this._score += item._score;
+                if (this._score + item._score >= 0) {
+                    this._score += item._score;
+                }
                 item.removeFromParent();
                 this._items.splice(i, 1);
 
