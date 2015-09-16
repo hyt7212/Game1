@@ -65,7 +65,7 @@
         deferred: function(json, resourcePath, action, file){
             var animationlist = json["Content"]["Content"]["AnimationList"];
             var length = animationlist ? animationlist.length : 0;
-            for (var i = 0; i < length; i++) {
+            for (var i = 0; i < length; i++){
                 var animationdata = animationlist[i];
                 var info = { name: null, startIndex: null, endIndex: null };
                 info.name = animationdata["Name"];
@@ -113,7 +113,7 @@
             name: "Rotation",
             handle: function(options){
                 var frame = new ccs.RotationFrame();
-                var rotation = options["Rotation"];
+                var rotation = options["Rotation"] || options["Value"] || 0;
                 frame.setRotation(rotation);
                 return frame;
             }
@@ -149,8 +149,16 @@
                 frame.setAnchorPoint(cc.p(anchorx, anchory));
                 return frame;
             }
-        },
-        {
+        },{
+            name: "AnchorPoint",
+            handle: function(options){
+                var frame = new ccs.AnchorPointFrame();
+                var anchorx = options["X"];
+                var anchory = options["Y"];
+                frame.setAnchorPoint(cc.p(anchorx, anchory));
+                return frame;
+            }
+        },{
             name: "InnerAction",
             handle: function(options){
                 var frame = new ccs.InnerActionFrame();
@@ -167,9 +175,9 @@
                 var frame = new ccs.ColorFrame();
                 var color = options["Color"];
                 if(!color) color = {};
-                color["R"] = color["R"] || 255;
-                color["G"] = color["G"] || 255;
-                color["B"] = color["B"] || 255;
+                color["R"] = color["R"] === undefined ? 255 : color["R"];
+                color["G"] = color["G"] === undefined ? 255 : color["G"];
+                color["B"] = color["B"] === undefined ? 255 : color["B"];
                 frame.setColor(cc.color(color["R"], color["G"], color["B"]));
                 return frame;
             }
@@ -186,11 +194,21 @@
         {
             name: "FileData",
             handle: function(options, resourcePath){
-                var frame = new ccs.TextureFrame();
-                var texture = options["TextureFile"];
+                var frame, texture, plist, path, spriteFrame;
+                frame = new ccs.TextureFrame();
+                texture = options["TextureFile"];
                 if(texture != null) {
-                    var path = texture["Path"];
-                    var spriteFrame = cc.spriteFrameCache.getSpriteFrame(path);
+                    plist = texture["Plist"];
+                    path = texture["Path"];
+                    spriteFrame = cc.spriteFrameCache.getSpriteFrame(path);
+                    if(!spriteFrame && plist){
+                        if(cc.loader.getRes(resourcePath + plist)){
+                            cc.spriteFrameCache.addSpriteFrames(resourcePath + plist);
+                            spriteFrame = cc.spriteFrameCache.getSpriteFrame(path);
+                        }else{
+                            cc.log("%s need to be preloaded", resourcePath + plist);
+                        }
+                    }
                     if(spriteFrame == null){
                         path = resourcePath + path;
                     }
@@ -220,7 +238,7 @@
         },
         {
             name: "ActionValue",
-            handle: function(options){
+            handle: function (options) {
 
                 var frame = new ccs.InnerActionFrame();
                 var innerActionType = options["InnerActionType"];
@@ -229,16 +247,45 @@
 
                 var singleFrameIndex = options["SingleFrameIndex"];
 
+                var frameIndex = options["FrameIndex"];
+                if(frameIndex !== undefined)
+                    frame.setFrameIndex(frameIndex);
+
                 frame.setInnerActionType(ccs.InnerActionType[innerActionType]);
                 frame.setSingleFrameIndex(singleFrameIndex);
 
                 frame.setEnterWithName(true);
-                frame.setAnimationName(currentAnimationFrame);
+                if (currentAnimationFrame)
+                     frame.setAnimationName(currentAnimationFrame);
 
+                return frame;
+            }
+        },
+        {
+            name: "BlendFunc",
+            handle: function(options){
+                var frame = new ccs.BlendFuncFrame();
+                var blendFunc = options["BlendFunc"];
+                if(blendFunc)
+                    frame.setBlendFunc(new cc.BlendFunc(blendFunc["Src"], blendFunc["Dst"]));
                 return frame;
             }
         }
     ];
+
+    var loadEasingDataWithFlatBuffers = function(frame, options){
+        var type = options["Type"];
+        frame.setTweenType(type);
+        var points = options["Points"];
+        var result = [];
+        if(points){
+            points.forEach(function(p){
+                result.push(p["X"]);
+                result.push(p["Y"]);
+            });
+            frame.setEasingParams(result);
+        }
+    };
 
     frameList.forEach(function(item){
         parser.registerParser(item.name, function(options, resourcePath){
@@ -252,6 +299,10 @@
                     frame.setFrameIndex(frameData["FrameIndex"]);
                     var tween = frameData["Tween"] != null ? frameData["Tween"] : true;
                     frame.setTween(tween);
+                    //https://github.com/cocos2d/cocos2d-x/pull/11388/files
+                    var easingData = frameData["EasingData"];
+                    if(easingData)
+                        loadEasingDataWithFlatBuffers(frame, easingData);
                     timeline.addFrame(frame);
                 });
             }

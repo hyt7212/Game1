@@ -12,15 +12,11 @@
 
     "jsList" : [
         "src/resource.js",
+        "src/config.js",
 
-        "src/config/GameConfig.js",
+        "src/start/scene/startScene.js",
 
-        "src/gameMenu/GameMenuScene.js",
-
-        "src/GamePlay/GamePlayScene.js",
-        "src/GamePlay/Lead.js",
-        "src/GamePlay/GPTouchLayer.js",
-
-        "src/gameOver/GameOverScene.js"
+        "src/play/scene/playScene.js",
+        "src/play/sprite/cart.js"
     ]
 }

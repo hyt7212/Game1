@@ -223,6 +223,22 @@ cc.MotionStreak = cc.Node.extend(/** @lends cc.MotionStreak# */{
     },
 
     /**
+     * Get stroke.
+     * @returns {Number} stroke
+     */
+    getStroke:function () {
+        return this._stroke;
+    },
+
+    /**
+     * Set stroke.
+     * @param {Number} stroke
+     */
+    setStroke:function (stroke) {
+        this._stroke = stroke;
+    },
+
+    /**
      * initializes a motion streak with fade in seconds, minimum segments, stroke's width, color and texture filename or texture
      * @param {Number} fade time to fade
      * @param {Number} minSeg minimum segment size
@@ -233,7 +249,7 @@ cc.MotionStreak = cc.Node.extend(/** @lends cc.MotionStreak# */{
      */
     initWithFade:function (fade, minSeg, stroke, color, texture) {
         if(!texture)
-            throw "cc.MotionStreak.initWithFade(): Invalid filename or texture";
+            throw new Error("cc.MotionStreak.initWithFade(): Invalid filename or texture");
 
         if (cc.isString(texture))
             texture = cc.textureCache.addImage(texture);

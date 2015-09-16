@@ -1,24 +1,26 @@
 var res = {
-    /*HelloWorld_png : "res/HelloWorld.png",
-    CloseNormal_png : "res/CloseNormal.png",
-    CloseSelected_png : "res/CloseSelected.png"*/
+    st_bg_png: "res/start/bg.png",
+    st_topbg_png: "res/start/top.png",
+    st_start_png: "res/start/start.png",
 
-    //字体资源
-    arial_14_fnt : "res/fonts/arial-14.fnt",
+    pl_bgMusic_mp3: "res/play/bgMusic.mp3",
+    pl_cart_png: "res/play/cart.png",
+    //pl_items_plist: "res/play/items.plist",
+    //pl_items_png: "res/play/items.png",
 
-    //菜单场景资源
-    GameMenuBG_png : "res/GameMenu/bg.png",
-    GameMenuTop_png : "res/GameMenu/top.png",
-    GameMenustartMenu_png : "res/GameMenu/startMenu.png",
-    GameMenuBG_mp3 : "res/GameMenu/bgMusic.mp3",
-
-    //游戏场景资源
-    PlayGameCart_png : "res/PlayGame/cart.png",
-    PlayGameCloseNormal_png : "res/PlayGame/CloseNormal.png",
-    PlayGameCloseSelected_png : "res/PlayGame/CloseSelected.png",
-    //游戏掉落物品
-    textureItems_plist : 'res/PlayGame/items.plist',
-    textureItems_png : 'res/PlayGame/items.png'
+    pl_item0: "res/play/item/item0.png",
+    pl_item1: "res/play/item/item1.png",
+    pl_item2: "res/play/item/item2.png",
+    pl_item3: "res/play/item/item3.png",
+    pl_item4: "res/play/item/item4.png",
+    pl_item5: "res/play/item/item5.png",
+    pl_item6: "res/play/item/item6.png",
+    pl_item7: "res/play/item/item7.png",
+    pl_item8: "res/play/item/item8.png",
+    pl_item9: "res/play/item/item9.png",
+    pl_item10: "res/play/item/item10.png",
+    pl_item11: "res/play/item/item11.png",
+    pl_item12: "res/play/item/item12.png",
 };
 
 var g_resources = [];
