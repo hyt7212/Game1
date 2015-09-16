@@ -24,7 +24,7 @@ var startLayer = cc.Layer.extend({
     /**
      * 开始按钮
      */
-    initmenu:function(){
+    initmenu: function () {
         var startBtn = new cc.MenuItemImage(res.st_start_png, null, this.onStart, this);
         //持续缩放效果
         var actionBy = cc.scaleBy(1.3, 1.3);
@@ -44,7 +44,7 @@ var startLayer = cc.Layer.extend({
      * 开始按钮处理
      * @param sender
      */
-    onStart:function (sender) {
+    onStart: function (sender) {
         cc.log("开始!"); //输出控制台日志
         //切换到进行游戏场景
         cc.director.runScene(new cc.TransitionFade(GC.TRANSITION_TIME, new playScene()));

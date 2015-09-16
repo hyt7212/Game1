@@ -11,12 +11,15 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
-        "src/resource.js",
         "src/config.js",
+        "src/resource.js",
 
         "src/start/scene/startScene.js",
 
         "src/play/scene/playScene.js",
-        "src/play/sprite/cart.js"
+        "src/play/sprite/cartSprite.js",
+        "src/play/sprite/itemSprite.js",
+
+        "src/over/scene/overScene.js"
     ]
 }
